@@ -1,0 +1,7 @@
+name: EssentialsReloaded
+version: ${project.version}
+main: io.github.austerzockt.essentialsreloaded.EssentialsReloaded
+api-version: 1.16
+prefix: EssReloaded
+authors: [ Auster ]
+description: Essentials, but just the really essential things
