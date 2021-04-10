@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,10 +20,13 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
         this.essentialsReloaded = essentialsReloaded;
 
 
+
     }
+
     protected void init() {
         essentialsReloaded.getCommand(name).setExecutor(this);
         essentialsReloaded.getCommand(name).setTabCompleter(this);
+
     }
     public abstract void execute(CommandSender sender, Command command, String[] args, PlayerData playerData);
     public abstract List<String> tab(CommandSender sender, Command command, String[] args,  PlayerData playerData);
@@ -51,11 +56,12 @@ public abstract class AbstractCommand implements CommandExecutor, TabCompleter {
         private final Player player;
         private final UUID uuid;
 
-        public Player getPlayer() {
+
+        public Player player() {
             return player;
         }
 
-        public UUID getUuid() {
+        public UUID uuid() {
             return uuid;
         }
 

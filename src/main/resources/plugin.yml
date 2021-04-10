@@ -7,3 +7,6 @@ authors: [ Auster ]
 description: Essentials, but just the really essential things
 commands:
   give:
+  giveme:
+    aliases:
+      - i
