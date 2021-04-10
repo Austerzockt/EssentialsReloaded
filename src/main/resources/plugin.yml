@@ -4,9 +4,17 @@ main: io.github.austerzockt.essentialsreloaded.EssentialsReloaded
 api-version: 1.16
 prefix: EssReloaded
 authors: [ Auster ]
+softdepend:
+  - ProtocolLib
 description: Essentials, but just the really essential things
 commands:
+  spawnmob:
+
   give:
+
   giveme:
     aliases:
       - i
+  gamemode:
+    aliases:
+      - gm

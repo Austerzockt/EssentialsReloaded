@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GiveCommand extends AbstractCommand{
+public class GiveCommand extends AbstractCommand {
     public GiveCommand(EssentialsReloaded essentialsReloaded) {
         super(essentialsReloaded);
         this.name = "give";
@@ -31,7 +31,7 @@ public class GiveCommand extends AbstractCommand{
             }
             int amount = args.length == 3 ? Integer.parseInt(args[2]) : 64;
             Material mat = Material.getMaterial(args[1].toUpperCase());
-            if (mat!= null) {
+            if (mat != null) {
                 playerData.player().getInventory().addItem(new ItemStack(mat, amount));
 
             }
@@ -45,9 +45,10 @@ public class GiveCommand extends AbstractCommand{
         //COPLETION FOR ARGS 1
         sender.sendMessage(args.length + "");
         List<String> returns = new ArrayList<>();
-        if (args.length == 3) returns = Lists.newArrayList("1","8","16","32","64");
-        if (args.length == 2) returns= Utils.commandUtils().listOfMaterials(args[1], true);
-        if (args.length == 1) returns= Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+        if (args.length == 3) returns = Lists.newArrayList("1", "8", "16", "32", "64");
+        if (args.length == 2) returns = Utils.commandUtils().listOfMaterials(args[1], true);
+        if (args.length == 1)
+            returns = Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
         Collections.sort(returns);
         return returns;
     }
