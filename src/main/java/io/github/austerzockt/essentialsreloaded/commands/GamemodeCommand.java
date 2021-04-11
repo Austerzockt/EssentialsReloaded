@@ -1,10 +1,12 @@
 package io.github.austerzockt.essentialsreloaded.commands;
 
 import io.github.austerzockt.essentialsreloaded.EssentialsReloaded;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -13,8 +15,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GamemodeCommand extends AbstractCommand {
-    private final Pattern pattern;
     private final List<String> GAMEMODES;
+    private final Pattern pattern_s;
+    private final Pattern pattern_c;
+    private final Pattern pattern_a;
+    private final Pattern pattern_sp;
 
     public GamemodeCommand(EssentialsReloaded essentialsReloaded) {
         super(essentialsReloaded);
@@ -23,46 +28,22 @@ public class GamemodeCommand extends AbstractCommand {
         this.permission = "essentials.gamemode";
         init();
         //And yes, I just wanted to show off my freshly gained and immediately forgotten Regex skills
-        this.pattern = Pattern.compile("^((s(p|)|c|a)|(^surv(ival|))|(creative)|(adventure)|(spec(|tator))|0|1|2|3)$");
+        pattern_s = Pattern.compile("^(s(|urv)(ival|)|0)$");
+        pattern_c = Pattern.compile("^(c(|reative)|1)$");
+        pattern_a = Pattern.compile("^(a(|dventure)|2)$");
+        pattern_sp = Pattern.compile("^(s(|p(ec(|tator)|))|3)$");
     }
 
     @Override
     public void execute(CommandSender sender, Command command, String[] args, PlayerData playerData) {
         if (playerData.isPlayer()) {
             if (args.length == 1) {
-                if (pattern.matcher(args[0]).find()) {
-
-                    switch (args[0]) {
-                        case "0":
-                        case "s":
-                        case "surv":
-                        case "survival":
-                            playerData.player().setGameMode(GameMode.SURVIVAL);
-                            break;
-                        case "1":
-                        case "c":
-                        case "creative":
-                            playerData.player().setGameMode(GameMode.CREATIVE);
-                            break;
-                        case "2":
-                        case "adventure":
-                        case "a":
-                            playerData.player().setGameMode(GameMode.ADVENTURE);
-                            break;
-                        case "3":
-                        case "sp":
-                        case "spectator":
-                        case "spec":
-                            playerData.player().setGameMode(GameMode.SPECTATOR);
-                            break;
-
-                    }
-
-                } else {
-                    sender.sendMessage(ChatColor.RED + "Invalid Gamemode, please enter input according to this regex: " + pattern.pattern());
-
+                var x = gamemode(playerData.player(), args[0]);
+                if (x.changed) {
+                    playerData.player().sendMessage(ChatColor.GOLD + "Your Gamemode was set to " + StringUtils.capitalize(x.gamemode.name().toLowerCase()));
                 }
             }
+
         }
     }
 
@@ -71,5 +52,37 @@ public class GamemodeCommand extends AbstractCommand {
         List<String> x = new ArrayList<>();
         StringUtil.copyPartialMatches(args[0], GAMEMODES, x);
         return x.stream().sorted().collect(Collectors.toList());
+    }
+
+    private GamemodeData gamemode(Player player, String gamemode) {
+        GamemodeData data = new GamemodeData(false, null);
+        if (pattern_s.matcher(gamemode).find()) {
+            player.setGameMode(GameMode.SURVIVAL);
+            data.gamemode = GameMode.SURVIVAL;
+            data.changed = true;
+        } else if (pattern_c.matcher(gamemode).find()) {
+            player.setGameMode(GameMode.CREATIVE);
+            data.gamemode = GameMode.CREATIVE;
+            data.changed = true;
+        } else if (pattern_a.matcher(gamemode).find()) {
+            player.setGameMode(GameMode.ADVENTURE);
+            data.gamemode = GameMode.ADVENTURE;
+            data.changed = true;
+        } else if (pattern_sp.matcher(gamemode).find()) {
+            player.setGameMode(GameMode.SPECTATOR);
+            data.gamemode = GameMode.SPECTATOR;
+            data.changed = true;
+        }
+        return data;
+    }
+
+    private class GamemodeData {
+        public boolean changed;
+        public GameMode gamemode;
+
+        public GamemodeData(boolean changed, GameMode gamemode) {
+            this.changed = changed;
+            this.gamemode = gamemode;
+        }
     }
 }
