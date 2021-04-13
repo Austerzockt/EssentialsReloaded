@@ -1,1 +1,7 @@
-test: '&4Hello There!!! {pl}'
+gamemode:
+  set_own: '&6Set your Gamemode to {gamemode}'
+  set_other: '&6 Set the Gamemode of {player} to {gamemode}'
+  target_exempt: '&cYou can''t change the Gamemode of {player}'
+general:
+  unknown_player: '&cUnknown Player!'
+  no_perms: '&cYou don''t have permission to execute this command'

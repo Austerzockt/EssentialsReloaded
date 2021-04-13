@@ -2,6 +2,7 @@ package io.github.austerzockt.essentialsreloaded;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -39,6 +40,14 @@ public final class Utils {
     public static class PlayerUtils {
         public boolean isOnline(String name) {
             return Bukkit.getOnlinePlayers().stream().filter(s -> s.getName().equalsIgnoreCase(name)).findFirst().orElse(null) != null;
+        }
+
+        public Player getPlayer(String name) {
+            if (isOnline(name)) {
+                return Bukkit.getPlayer(name);
+            }
+            return null;
+
         }
     }
 

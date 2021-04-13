@@ -6,14 +6,11 @@ import io.github.austerzockt.essentialsreloaded.localization.IMessageHandler;
 import io.github.austerzockt.essentialsreloaded.localization.SimpleMessageHandler;
 import io.github.austerzockt.essentialsreloaded.reflection.IAdapter;
 import org.bukkit.Bukkit;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 
-public final class EssentialsReloaded extends JavaPlugin implements Listener {
+public final class EssentialsReloaded extends JavaPlugin {
     private static EssentialsReloaded essentialsReloaded;
     private IAdapter adapter;
     private ICommandHandler commandHandler;
@@ -28,6 +25,9 @@ public final class EssentialsReloaded extends JavaPlugin implements Listener {
         return instance().adapter;
     }
 
+    public IMessageHandler messageHandler() {
+        return messageHandler;
+    }
 
     public IConfigHandler configHandler() {
         return configHandler;
@@ -39,7 +39,6 @@ public final class EssentialsReloaded extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
         setupConfigHandler();
         setupConfigs();
         essentialsReloaded = this;
@@ -51,10 +50,6 @@ public final class EssentialsReloaded extends JavaPlugin implements Listener {
 
     }
 
-    @EventHandler
-    public void event(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage(messageHandler.getMessage("test").placeholder("pl", event.getPlayer().getDisplayName()).build());
-    }
 
     private void disablePlugin(String reason) {
         getLogger().severe("Plugin was disabled!");
