@@ -2,6 +2,7 @@ package io.github.austerzockt.essentialsreloaded;
 
 import com.google.common.collect.Maps;
 import io.github.austerzockt.essentialsreloaded.commands.AbstractCommand;
+import io.github.austerzockt.essentialsreloaded.commands.GiveCommand;
 import io.github.austerzockt.essentialsreloaded.exceptions.CommandNotFoundException;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
@@ -47,6 +48,14 @@ public class SimpleCommandHandler implements ICommandHandler {
 
     }
 
+    public <T extends AbstractCommand> T getCommand(Class<T> commandClass) {
+        T r;
+        if (commandClass == null) return null;
+        else r = (T) commands.getOrDefault(commandClass, null);
+        if (r == null)
+            throw new CommandNotFoundException("This Command was not found. (This should in theory be impossible, what did you do??) " + commandClass.getName());
+        return r;
+    }
     @Override
     public List<AbstractCommand> getCommands() {
         return new ArrayList<>(commands.values());
@@ -58,7 +67,7 @@ public class SimpleCommandHandler implements ICommandHandler {
      * Note: this returns null if it is supplied null as an argument
      *
      * */
-    @Override
+    /*@Override
     public AbstractCommand getCommand(Class<? extends AbstractCommand> commandClass) {
         AbstractCommand r;
         if (commandClass == null) return null;
@@ -66,5 +75,5 @@ public class SimpleCommandHandler implements ICommandHandler {
         if (r == null)
             throw new CommandNotFoundException("This Command was not found. (This should in theory be impossible, what did you do??) " + commandClass.getName());
         return r;
-    }
+    } */
 }

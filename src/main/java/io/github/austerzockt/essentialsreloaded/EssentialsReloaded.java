@@ -1,5 +1,6 @@
 package io.github.austerzockt.essentialsreloaded;
 
+import io.github.austerzockt.essentialsreloaded.commands.EnderChestCommand;
 import io.github.austerzockt.essentialsreloaded.config.IConfigHandler;
 import io.github.austerzockt.essentialsreloaded.config.SimpleConfigHandler;
 import io.github.austerzockt.essentialsreloaded.localization.IMessageHandler;
@@ -47,6 +48,7 @@ public final class EssentialsReloaded extends JavaPlugin {
         if (!setupCommandHandler())
             disablePlugin("CommandHandler couldn't be set up correctly. \n Reflective Access is probably not working");
         getLogger().severe(String.valueOf(commandHandler.getCommands().size()));
+        setupListeners();
 
     }
 
@@ -56,11 +58,12 @@ public final class EssentialsReloaded extends JavaPlugin {
         getLogger().severe("Reason: " + reason);
         this.getServer().getPluginManager().disablePlugin(this);
 
-    }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+
+    }
+    private boolean setupListeners() {
+        Bukkit.getPluginManager().registerEvents(commandHandler.getCommand(EnderChestCommand.class), this);
+        return true;
     }
 
     private boolean setupConfigs() {

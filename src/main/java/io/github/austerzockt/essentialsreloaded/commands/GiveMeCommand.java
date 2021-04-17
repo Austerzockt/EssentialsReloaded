@@ -2,7 +2,7 @@ package io.github.austerzockt.essentialsreloaded.commands;
 
 import com.google.common.collect.Lists;
 import io.github.austerzockt.essentialsreloaded.EssentialsReloaded;
-import io.github.austerzockt.essentialsreloaded.Utils;
+import io.github.austerzockt.essentialsreloaded.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

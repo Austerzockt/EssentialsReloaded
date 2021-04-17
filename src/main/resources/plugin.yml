@@ -9,7 +9,9 @@ softdepend:
 description: Essentials, but just the really essential things
 commands:
   spawnmob:
-
+  enderchest:
+    aliases:
+      - ec
   give:
 
   giveme:

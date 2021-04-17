@@ -1,4 +1,4 @@
-package io.github.austerzockt.essentialsreloaded;
+package io.github.austerzockt.essentialsreloaded.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

@@ -28,7 +28,7 @@ public class SimpleMessageHandler implements IMessageHandler {
         return essentialsReloaded.getResource("messages_" + languagecode + ".yml") != null;
     }
 
-    class SimpleMessage implements IMessage {
+    static class SimpleMessage implements IMessage {
         private String message;
 
         public SimpleMessage(String message) {

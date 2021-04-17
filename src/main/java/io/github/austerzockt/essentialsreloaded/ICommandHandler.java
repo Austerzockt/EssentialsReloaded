@@ -8,5 +8,6 @@ public interface ICommandHandler {
 
     List<AbstractCommand> getCommands();
 
-    AbstractCommand getCommand(Class<? extends AbstractCommand> commandClass);
+     <T extends AbstractCommand> T getCommand(Class<T> commandClass);
+
 }
