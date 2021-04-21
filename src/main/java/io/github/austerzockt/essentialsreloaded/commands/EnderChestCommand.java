@@ -1,11 +1,9 @@
 package io.github.austerzockt.essentialsreloaded.commands;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import io.github.austerzockt.essentialsreloaded.EssentialsReloaded;
 import io.github.austerzockt.essentialsreloaded.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,12 +13,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.Contract;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 

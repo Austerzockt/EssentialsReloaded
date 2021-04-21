@@ -5,5 +5,4 @@ SMP, goddamnit.
 
 # Build
 
-Maven... Preferred IDE is IDEA. Just add a Maven task with "clean package" and maybe "install"... I have a deploy script
-that copies the file to my server too
+Maven... Preferred IDE is Vim. Just add a Maven task with "clean package" and maybe "install"...
