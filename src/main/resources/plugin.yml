@@ -8,6 +8,7 @@ softdepend:
   - ProtocolLib
 description: Essentials, but just the really essential things
 commands:
+  invsee:
   spawnmob:
   enderchest:
     aliases:
@@ -19,4 +20,4 @@ commands:
       - i
   gamemode:
     aliases:
-      - gm
+      - gm 

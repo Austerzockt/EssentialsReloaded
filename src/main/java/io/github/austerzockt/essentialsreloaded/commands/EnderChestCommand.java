@@ -20,61 +20,62 @@ import java.util.List;
 import java.util.UUID;
 
 public class EnderChestCommand extends AbstractCommand implements Listener {
-    private final List<UUID> openUnmodifiableECs;
-    public EnderChestCommand(EssentialsReloaded essentialsReloaded) {
-        super(essentialsReloaded);
-        openUnmodifiableECs = Lists.newArrayList();
-        this.name = "enderchest";
-        this.permission = "essentials.enderchest";
-        init();
-    }
+	private final List<UUID> openUnmodifiableECs;
 
+	public EnderChestCommand(EssentialsReloaded essentialsReloaded) {
+		super(essentialsReloaded, "enderchest", "essentials.enderchest");
+		openUnmodifiableECs = Lists.newArrayList();
+	}
 
-    @Override
-    public void execute(CommandSender sender, Command command, String[] args, PlayerData playerData) {
-    if (playerData.isPlayer()) {
-        Player p = (args.length > 0) ? Utils.playerUtils().getPlayer(args[0]) : playerData.player();
-        if (p == null) {sender.sendMessage(essentialsReloaded.messageHandler().getMessage("general.unknown_player").build()); return; }
-        if (sender.hasPermission(this.permission + ".modify") || args.length == 0) {
-            playerData.player().openInventory(p.getEnderChest());
+	@Override
+	public void execute(CommandSender sender, Command command, String[] args, PlayerData playerData) {
+		if (playerData.isPlayer()) {
+			Player p = (args.length > 0) ? Utils.playerUtils().getPlayer(args[0]) : playerData.player();
+			if (p == null) {
+				sender.sendMessage(essentialsReloaded.messageHandler()
+						.getMessage("general.unknown_player").build());
+				return;
+			}
+			if (sender.hasPermission(this.permission + ".modify") || args.length == 0) {
+				playerData.player().openInventory(p.getEnderChest());
 
-        } else {
-            Inventory copyOfEc = Bukkit.createInventory( null, InventoryType.CHEST, "Ender Chest");
-            copyOfEc.setContents(p.getEnderChest().getContents());
-            openUnmodifiableECs.add(playerData.uuid());
+			} else {
+				Inventory copyOfEc = Bukkit.createInventory(null, InventoryType.CHEST, "Ender Chest");
+				copyOfEc.setContents(p.getEnderChest().getContents());
+				openUnmodifiableECs.add(playerData.uuid());
 
-            playerData.player().openInventory(copyOfEc);
-        }
-        playerData.player().openInventory(p.getEnderChest());
-    }
+				playerData.player().openInventory(copyOfEc);
+			}
+			playerData.player().openInventory(p.getEnderChest());
+		}
 
-    }
+	}
 
+	@EventHandler
+	public void onECOpen(InventoryClickEvent event) {
+		if (openUnmodifiableECs.contains(event.getWhoClicked().getUniqueId())) {
+			event.setCancelled(true);
+		}
 
-    @EventHandler
-    public void onECOpen(InventoryClickEvent event) {
-        if (openUnmodifiableECs.contains(event.getWhoClicked().getUniqueId())) {
-            event.setCancelled(true);
-        }
+	}
 
-    }
-    @EventHandler
-    public void onECClose(InventoryCloseEvent event) {
-        openUnmodifiableECs.remove(event.getPlayer().getUniqueId());
-    }
-    @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
-        openUnmodifiableECs.remove(event.getPlayer().getUniqueId());
-    }
-    public void onPlayerDeath(PlayerDeathEvent event) {
-        openUnmodifiableECs.remove(event.getEntity().getUniqueId());
-    }
+	@EventHandler
+	public void onECClose(InventoryCloseEvent event) {
+		openUnmodifiableECs.remove(event.getPlayer().getUniqueId());
+	}
 
+	@EventHandler
+	public void onLeave(PlayerQuitEvent event) {
+		openUnmodifiableECs.remove(event.getPlayer().getUniqueId());
+	}
 
-    @Override
-    public List<String> tab(CommandSender sender, Command command, String[] args, PlayerData playerData) {
-        return null;
-    }
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		openUnmodifiableECs.remove(event.getEntity().getUniqueId());
+	}
+
+	@Override
+	public List<String> tab(CommandSender sender, Command command, String[] args, PlayerData playerData) {
+		return null;
+	}
 
 }
-

@@ -7,20 +7,17 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class SpawnMobCommand extends AbstractCommand {
-    public SpawnMobCommand(EssentialsReloaded essentialsReloaded) {
-        super(essentialsReloaded);
-        this.name = "spawnmob";
-        this.permission = "essentials.spawnmob";
-        init();
-    }
+	public SpawnMobCommand(EssentialsReloaded essentialsReloaded) {
+		super(essentialsReloaded, "spawnmob", "essentials.spawnmob");
+	}
 
-    @Override
-    public void execute(CommandSender sender, Command command, String[] args, PlayerData playerData) {
+	@Override
+	public void execute(CommandSender sender, Command command, String[] args, PlayerData playerData) {
 
-    }
+	}
 
-    @Override
-    public List<String> tab(CommandSender sender, Command command, String[] args, PlayerData playerData) {
-        return null;
-    }
+	@Override
+	public List<String> tab(CommandSender sender, Command command, String[] args, PlayerData playerData) {
+		return null;
+	}
 }
