@@ -20,7 +20,8 @@ public class EssentialsConfig extends YamlConfiguration {
         this.plugin = plugin;
         file = new File(plugin.getDataFolder(), name.endsWith(".yml") ? name : name + ".yml");
         if (!file.exists()) {
-            InputStream is = plugin.getResource(name + ".yml");
+            //I do not see the point of this statement here. Untested change, but yeah I highly doubt its needed
+            //InputStream is = plugin.getResource(name + ".yml");
             plugin.saveResource(name + ".yml", false);
         }
         try {
